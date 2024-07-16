@@ -1,5 +1,6 @@
 import time
 import pydirectinput
+from size import get_resize
 from pydirectinput import (
     keyDown,
     keyUp,
@@ -27,6 +28,7 @@ def press_and_hold_key(key: str, seconds: float):
     keyUp(key)
 
 
+
 def move_to_and_left_click(x: int = None, y: int = None):
     logger.debug(f"鼠标移动至 ({x}, {y})，左键点击")
 
@@ -45,37 +47,37 @@ def run(secons: float):
 
 
 def open_map_and_switch_difficulty():
-    # 打开地图
+    # 打开地图 - Open map
     press("m")
-    time.sleep(map_selecte_settings.打开地图后等待时间)
+    time.sleep(1)
 
-    # 点击战争领主的废墟
-    moveTo(map_selecte_settings.monitor_settings.鼠标x轴坐标)
-    time.sleep(map_selecte_settings.选择废墟等待时间)
+    # 点击战争领主的废墟 - Select Warlord's Ruin
+    moveTo(get_resize(2360)) #2360
+    time.sleep(0.3)
     leftClick()
 
-    # 点开难度选择
-    time.sleep(map_selecte_settings.选择难度时间间隔)
-    move_to_and_left_click(*map_selecte_settings.monitor_settings.难度选项卡坐标)
+    # 点开难度选择 - Select Difficulty
+    time.sleep(1.5)
+    move_to_and_left_click(*get_resize(1960, 1110))
 
-    # 选择大师难度
-    time.sleep(map_selecte_settings.选择难度时间间隔)
-    move_to_and_left_click(*map_selecte_settings.monitor_settings.大师难度选项坐标)
+    # 选择大师难度 - Select Master Difficulty
+    time.sleep(1.5)
+    move_to_and_left_click(*get_resize(455, 460))
 
 
 def start_next_round():
     open_map_and_switch_difficulty()
 
-    # 点击开始
-    time.sleep(map_selecte_settings.飞图点击开始按钮延迟)
-    move_to_and_left_click(*map_selecte_settings.monitor_settings.开始按钮坐标)
+    # 点击开始 - Start
+    time.sleep(2)
+    move_to_and_left_click(*get_resize(2180, 1210))
 
 
 def refresh_checkpoint():
     open_map_and_switch_difficulty()
 
-    # F进度
-    moveTo(*map_selecte_settings.monitor_settings.F进度坐标)
+    # F进度 - Reset Checkpoint
+    moveTo(*get_resize(1805, 1115))
     time.sleep(1)
     press_and_hold_key("f", 4)
 
@@ -84,7 +86,7 @@ def refresh_checkpoint():
         time.sleep(0.5)
 
     run(10)
-    logger.info("已重置进度")
+    logger.info("Progress Reset")
 
 
 def kick_boss_by_indebted_kindess():
@@ -134,3 +136,9 @@ def hide_indebted_kindess():
     keyUp("w")
     time.sleep(0.5)
     press(key_settings.埋头表情按键)
+
+
+
+
+
+
